@@ -9,6 +9,7 @@ module.exports = {
   ],
   parserOptions: { tsconfigRootDir: __dirname },
   rules: {
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@rushstack/typedef-var": "off"
   }
 };
