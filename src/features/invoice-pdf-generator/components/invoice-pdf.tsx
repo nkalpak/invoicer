@@ -28,6 +28,7 @@ interface IInvoiceReceiver {
 interface IInvoicePdfProps {
   sender: IInvoiceSender;
   receiver: IInvoiceReceiver;
+
   hourlyRateCents: number;
   hours: number;
   dateGenerated: string;
