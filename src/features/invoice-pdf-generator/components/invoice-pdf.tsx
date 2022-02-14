@@ -30,7 +30,7 @@ interface IInvoicePdfProps {
   hourlyRateCents: number;
   hours: number;
   dateGenerated: string;
-  description: string;
+  description?: string;
   invoiceNumber: number;
 }
 
@@ -61,7 +61,7 @@ export const invoiceBuilder = build<IInvoicePdfProps>({
     dateGenerated: fake((f) => f.date.past().toISOString()),
     description: fake((f) => f.lorem.paragraph(5)),
     hourlyRateCents: fake((f) =>
-      f.datatype.number({ min: 1 * 100, max: 40 * 100 })
+      f.datatype.number({ min: 100, max: 40 * 100 })
     ),
     hours: fake((f) => f.datatype.number({ min: 150, max: 200 })),
     invoiceNumber: fake((f) => f.datatype.number({ min: 1, max: 300 })),

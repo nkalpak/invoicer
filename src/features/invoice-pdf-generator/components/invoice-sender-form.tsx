@@ -2,7 +2,7 @@ import { useStore } from "../../store";
 import { Form } from "../../../components/form/form";
 import React from "react";
 import { InputField } from "../../../components/form/input-field";
-import { Button } from "@mui/material";
+import { Button, Link } from "@mui/material";
 import { SubmitHandler } from "react-hook-form";
 import { FormRow } from "../../../components/form-row/form-row";
 import { InvoiceSender, InvoiceSenderParser } from "../types";
@@ -74,6 +74,27 @@ export function InvoiceSenderForm({ onSubmit }: IInvoiceSenderFormProps) {
             registration={register("everhourApiKey")}
             error={formState.errors.everhourApiKey}
             label="Everhour Api Key (optional)"
+            helperText={
+              <span>
+                You can find your Everhour API key at the bottom of{" "}
+                <Link
+                  href="https://app.everhour.com/#/account/profile"
+                  target="_blank"
+                >
+                  your profile page
+                </Link>
+              </span>
+            }
+          />
+
+          <InputField
+            multiline
+            minRows={3}
+            maxRows={8}
+            registration={register("description")}
+            error={formState.errors.description}
+            label="Description"
+            helperText="Some additional information to include on your invoice, such as IBAN, SWIFT, Bank information, etc..."
           />
 
           <Button variant="contained" type="submit">

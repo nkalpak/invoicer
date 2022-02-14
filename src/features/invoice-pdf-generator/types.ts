@@ -16,6 +16,7 @@ const InvoiceSenderParser = z.object({
   postalCode: z.string().min(1),
   email: z.string().min(1).email("Invalid email"),
   everhourApiKey: z.string().optional(),
+  description: z.string().optional(),
 });
 type InvoiceSender = z.infer<typeof InvoiceSenderParser>;
 

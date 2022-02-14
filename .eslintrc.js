@@ -10,6 +10,7 @@ module.exports = {
   parserOptions: { tsconfigRootDir: __dirname },
   rules: {
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@rushstack/typedef-var": "off"
+    "@rushstack/typedef-var": "off",
+    "react/jsx-no-bind": "off"
   }
 };
