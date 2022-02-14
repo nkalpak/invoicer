@@ -1,6 +1,9 @@
 import React from "react";
 import { View } from "@react-pdf/renderer";
-import { Colors, Spacing } from "./invoice-pdf";
+import {
+  Colors,
+  Spacing,
+} from "../../invoice-pdf-generator/components/invoice-pdf";
 import { Typography } from "./typography";
 
 interface ILabelProps {

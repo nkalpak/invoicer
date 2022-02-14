@@ -9,7 +9,9 @@ const MAPPERS: Record<
   Required<ICurrencyProps>["currency"],
   (amount: number) => string
 > = {
-  eur: (amount: number) => `€${amount / 100}`,
+  eur(amount: number) {
+    return `€${Number(amount / 100).toPrecision(4)}`;
+  },
 };
 
 export function Currency({ currency = "eur", amountCents }: ICurrencyProps) {

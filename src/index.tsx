@@ -4,6 +4,10 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { ReactLocationProvider } from "./lib/react-location";
+import { ReactQueryProvider } from "./lib/react-query";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DateAdapter from "@mui/lab/AdapterDayjs";
 
 const theme = createTheme({
   typography: {
@@ -12,7 +16,17 @@ const theme = createTheme({
 });
 
 function GlobalProvider({ children }: { children: React.ReactNode }) {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return (
+    <ReactQueryProvider>
+      <ReactLocationProvider>
+        <ThemeProvider theme={theme}>
+          <LocalizationProvider dateAdapter={DateAdapter}>
+            {children}
+          </LocalizationProvider>
+        </ThemeProvider>
+      </ReactLocationProvider>
+    </ReactQueryProvider>
+  );
 }
 
 ReactDOM.render(

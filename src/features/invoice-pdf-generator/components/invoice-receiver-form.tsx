@@ -2,9 +2,9 @@ import React from "react";
 import { Form } from "../../../components/form/form";
 import { InputField } from "../../../components/form/input-field";
 import { SubmitHandler } from "react-hook-form";
-import { InvoiceReceiver, InvoiceReceiverParser } from "../types";
 import { Button } from "@mui/material";
 import { useStore } from "../../store";
+import { InvoiceReceiver, InvoiceReceiverParser } from "../types";
 
 interface IInvoiceReceiverFormProps {
   onSubmit: SubmitHandler<InvoiceReceiver>;

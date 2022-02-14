@@ -3,7 +3,7 @@ import { TextField, TextFieldProps } from "@mui/material";
 import React from "react";
 
 type IInputFieldProps = Omit<TextFieldProps, "error"> & {
-  type?: "text" | "email" | "password";
+  type?: "text" | "email" | "password" | "date";
   registration: Partial<UseFormRegisterReturn>;
   label?: string;
   className?: string;
@@ -16,6 +16,7 @@ export const InputField = ({ helperText, ...props }: IInputFieldProps) => {
   const { type = "text", label, className, registration, error } = props;
   return (
     <TextField
+      {...props}
       type={type}
       className={className}
       // eslint-disable-next-line eqeqeq

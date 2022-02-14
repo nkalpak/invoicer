@@ -1,6 +1,5 @@
 import create from "zustand";
-import { InvoiceSender } from "./invoice-sender/types";
-import { InvoiceReceiver } from "./invoice-receiver/types";
+import { InvoiceReceiver, InvoiceSender } from "./invoice-pdf-generator/types";
 
 interface IStore {
   invoiceSender: InvoiceSender;

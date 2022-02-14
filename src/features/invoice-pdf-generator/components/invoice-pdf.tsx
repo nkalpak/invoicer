@@ -4,10 +4,8 @@ import MetergramLogo from "../../../assets/images/metergram-logo.png";
 import { build, fake } from "@jackfranklin/test-data-bot";
 import { Document, Page, Text, View, Image } from "@react-pdf/renderer";
 import { registerFonts } from "../utils/register-fonts";
-import { Typography } from "./typography";
-import { Row } from "./layout";
-import { LabelledValue } from "./labelledValue";
 import { Currency } from "./currency";
+import { PdfGenerator } from "../../pdf-generator";
 
 interface IInvoiceSender {
   firstName: string;
@@ -130,18 +128,20 @@ export function InvoicePdf({
         />
 
         <View style={{ fontSize: 10, marginBottom: Spacing["8"] }}>
-          <Typography
+          <PdfGenerator.Typography
             variant="body2"
             style={{
               fontWeight: 500,
             }}
           >
             {sender.firstName} {sender.lastName}
-          </Typography>
-          <Typography variant="body2">{sender.address}</Typography>
-          <Typography variant="body2">
+          </PdfGenerator.Typography>
+          <PdfGenerator.Typography variant="body2">
+            {sender.address}
+          </PdfGenerator.Typography>
+          <PdfGenerator.Typography variant="body2">
             {sender.city} {sender.postalCode}, {sender.country}
-          </Typography>
+          </PdfGenerator.Typography>
         </View>
 
         <Text
@@ -154,62 +154,81 @@ export function InvoicePdf({
           Invoice #{invoiceNumber}
         </Text>
 
-        <Row gap={Spacing["10"]}>
-          <LabelledValue label="Bill to">
-            <Typography variant="body2" style={{ fontWeight: 500 }}>
+        <PdfGenerator.Row gap={Spacing["10"]}>
+          <PdfGenerator.LabelledValue label="Bill to">
+            <PdfGenerator.Typography
+              variant="body2"
+              style={{ fontWeight: 500 }}
+            >
               {receiver.name}
-            </Typography>
-            <Typography variant="body2">{receiver.address}</Typography>
-            <Typography variant="body2">{receiver.email}</Typography>
-          </LabelledValue>
+            </PdfGenerator.Typography>
+            <PdfGenerator.Typography variant="body2">
+              {receiver.address}
+            </PdfGenerator.Typography>
+            <PdfGenerator.Typography variant="body2">
+              {receiver.email}
+            </PdfGenerator.Typography>
+          </PdfGenerator.LabelledValue>
 
-          <LabelledValue label="Date">
-            <Typography variant="body2">{formatDate(dateGenerated)}</Typography>
-          </LabelledValue>
+          <PdfGenerator.LabelledValue label="Date">
+            <PdfGenerator.Typography variant="body2">
+              {formatDate(dateGenerated)}
+            </PdfGenerator.Typography>
+          </PdfGenerator.LabelledValue>
 
-          <LabelledValue label="Due date">
-            <Typography variant="body2">
+          <PdfGenerator.LabelledValue label="Due date">
+            <PdfGenerator.Typography variant="body2">
               {formatDate(getInvoiceDueDate(dateGenerated))}
-            </Typography>
-          </LabelledValue>
-        </Row>
+            </PdfGenerator.Typography>
+          </PdfGenerator.LabelledValue>
+        </PdfGenerator.Row>
 
         <View style={{ marginTop: Spacing["8"] }}>
-          <Row
+          <PdfGenerator.Row
             style={{
               paddingBottom: Spacing["1"],
               color: Colors.lightGray,
               borderBottom: `1px solid ${Colors.lighterGray}`,
             }}
           >
-            <Typography variant="overline">#</Typography>
-            <Typography variant="overline">Description</Typography>
-            <Typography variant="overline">Quantity</Typography>
-            <Typography variant="overline" align="right">
+            <PdfGenerator.Typography variant="overline">
+              #
+            </PdfGenerator.Typography>
+            <PdfGenerator.Typography variant="overline">
+              Description
+            </PdfGenerator.Typography>
+            <PdfGenerator.Typography variant="overline">
+              Quantity
+            </PdfGenerator.Typography>
+            <PdfGenerator.Typography variant="overline" align="right">
               Rate
-            </Typography>
-            <Typography variant="overline" align="right">
+            </PdfGenerator.Typography>
+            <PdfGenerator.Typography variant="overline" align="right">
               Amount
-            </Typography>
-          </Row>
+            </PdfGenerator.Typography>
+          </PdfGenerator.Row>
 
-          <Row
+          <PdfGenerator.Row
             style={{
               paddingBottom: Spacing["2"],
               paddingTop: Spacing["2"],
               borderBottom: `1px solid ${Colors.lighterGray}`,
             }}
           >
-            <Typography variant="body2">1</Typography>
-            <Typography variant="body2">Consulting Services</Typography>
-            <Typography variant="body2">{hours}</Typography>
-            <Typography variant="body2" align="right">
+            <PdfGenerator.Typography variant="body2">1</PdfGenerator.Typography>
+            <PdfGenerator.Typography variant="body2">
+              Consulting Services
+            </PdfGenerator.Typography>
+            <PdfGenerator.Typography variant="body2">
+              {hours.toPrecision(4)}
+            </PdfGenerator.Typography>
+            <PdfGenerator.Typography variant="body2" align="right">
               <Currency amountCents={hourlyRateCents} />
-            </Typography>
-            <Typography variant="body2" align="right">
+            </PdfGenerator.Typography>
+            <PdfGenerator.Typography variant="body2" align="right">
               <Currency amountCents={hourlyRateCents * hours} />
-            </Typography>
-          </Row>
+            </PdfGenerator.Typography>
+          </PdfGenerator.Row>
         </View>
 
         <View
@@ -221,9 +240,11 @@ export function InvoicePdf({
           }}
         >
           <View style={{ maxWidth: "60%" }}>
-            <LabelledValue label="Description">
-              <Typography variant="body2">{description}</Typography>
-            </LabelledValue>
+            <PdfGenerator.LabelledValue label="Description">
+              <PdfGenerator.Typography variant="body2">
+                {description}
+              </PdfGenerator.Typography>
+            </PdfGenerator.LabelledValue>
           </View>
 
           <View
@@ -247,10 +268,12 @@ export function InvoicePdf({
                   justifyContent: "space-between",
                 }}
               >
-                <LabelledValue.Label>Subtotal</LabelledValue.Label>
-                <Typography variant="body2">
+                <PdfGenerator.LabelledValue.Label>
+                  Subtotal
+                </PdfGenerator.LabelledValue.Label>
+                <PdfGenerator.Typography variant="body2">
                   <Currency amountCents={hours * hourlyRateCents} />
-                </Typography>
+                </PdfGenerator.Typography>
               </View>
 
               <View
@@ -262,8 +285,12 @@ export function InvoicePdf({
                   justifyContent: "space-between",
                 }}
               >
-                <LabelledValue.Label>Tax</LabelledValue.Label>
-                <Typography variant="body2">0%</Typography>
+                <PdfGenerator.LabelledValue.Label>
+                  Tax
+                </PdfGenerator.LabelledValue.Label>
+                <PdfGenerator.Typography variant="body2">
+                  0%
+                </PdfGenerator.Typography>
               </View>
             </View>
 
@@ -277,7 +304,9 @@ export function InvoicePdf({
                 paddingTop: Spacing["2"],
               }}
             >
-              <LabelledValue.Label>Total</LabelledValue.Label>
+              <PdfGenerator.LabelledValue.Label>
+                Total
+              </PdfGenerator.LabelledValue.Label>
               <Text
                 style={{
                   color: Colors.primary,

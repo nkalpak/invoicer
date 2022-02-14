@@ -1,6 +1,6 @@
 import React, { ComponentProps, PropsWithChildren } from "react";
 import { View, StyleSheet } from "@react-pdf/renderer";
-import { ShouldRender } from "./should-render";
+import { ShouldRender } from "../../../components/should-render/should-render";
 import { Spacer } from "./spacer";
 
 const commonPdfStyles = StyleSheet.create({

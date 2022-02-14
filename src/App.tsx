@@ -1,39 +1,27 @@
 import React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import {
-  AppBar,
-  Box,
-  Container,
-  IconButton,
-  Paper,
-  Step,
-  StepButton,
-  StepLabel,
-  Stepper,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
+import { Outlet, useNavigate } from "react-location";
 import { useStore } from "./features/store";
-import { InvoiceSenderForm } from "./features/invoice-sender/components/invoice-sender-form";
-import { InvoiceReceiverForm } from "./features/invoice-receiver/components/invoice-receiver-form";
-
-enum OnboardingStep {
-  SenderInfo,
-  ReceiverInfo,
-  AdditionalInfo,
-}
 
 function App() {
-  const [activeStep, setActiveStep] = React.useState<OnboardingStep>(
-    OnboardingStep.SenderInfo
-  );
+  const { invoiceSender, invoiceReceiver } = useStore();
+  const navigate = useNavigate();
 
-  const { setInvoiceSender, setInvoiceReceiver } = useStore();
+  const hasRequiredData = invoiceSender.email && invoiceReceiver.email;
+
+  React.useLayoutEffect(() => {
+    if (!hasRequiredData) {
+      navigate({
+        to: "/onboarding",
+      });
+    }
+  }, [hasRequiredData, navigate]);
 
   return (
     <div style={{ display: "flex", flexGrow: 1 }}>
       <Box sx={{ flexGrow: 1, color: "white" }}>
-        <AppBar position="sticky">
+        <AppBar position="sticky" sx={{ mb: 8 }}>
           <Toolbar>
             <IconButton color="inherit" sx={{ mr: 2 }}>
               <MenuIcon />
@@ -43,54 +31,7 @@ function App() {
           </Toolbar>
         </AppBar>
 
-        <Container maxWidth="md" sx={{ mt: 8 }}>
-          <Paper sx={{ padding: 4 }}>
-            <Box sx={{ mb: 6 }}>
-              <Stepper activeStep={activeStep}>
-                <Step active={activeStep === OnboardingStep.SenderInfo}>
-                  <StepButton
-                    onClick={() => setActiveStep(OnboardingStep.SenderInfo)}
-                  >
-                    Sender details
-                  </StepButton>
-                </Step>
-
-                <Step active={activeStep === OnboardingStep.ReceiverInfo}>
-                  <StepButton
-                    onClick={() => setActiveStep(OnboardingStep.ReceiverInfo)}
-                  >
-                    Receiver details
-                  </StepButton>
-                </Step>
-              </Stepper>
-            </Box>
-
-            {(() => {
-              switch (activeStep) {
-                case OnboardingStep.SenderInfo:
-                  return (
-                    <InvoiceSenderForm
-                      onSubmit={(data) => {
-                        setInvoiceSender(data);
-                        setActiveStep(OnboardingStep.ReceiverInfo);
-                      }}
-                    />
-                  );
-                case OnboardingStep.ReceiverInfo:
-                  return (
-                    <InvoiceReceiverForm
-                      onSubmit={(data) => {
-                        setInvoiceReceiver(data);
-                        setActiveStep(OnboardingStep.AdditionalInfo);
-                      }}
-                    />
-                  );
-                default:
-                  return null;
-              }
-            })()}
-          </Paper>
-        </Container>
+        <Outlet />
       </Box>
     </div>
   );

@@ -1,11 +1,11 @@
 import { useStore } from "../../store";
 import { Form } from "../../../components/form/form";
-import { InvoiceSender, InvoiceSenderParser } from "../types";
 import React from "react";
 import { InputField } from "../../../components/form/input-field";
 import { Button } from "@mui/material";
 import { SubmitHandler } from "react-hook-form";
 import { FormRow } from "../../../components/form-row/form-row";
+import { InvoiceSender, InvoiceSenderParser } from "../types";
 
 type SenderFormSchema = InvoiceSender;
 
@@ -68,6 +68,12 @@ export function InvoiceSenderForm({ onSubmit }: IInvoiceSenderFormProps) {
             registration={register("email")}
             error={formState.errors.email}
             label="Email"
+          />
+
+          <InputField
+            registration={register("everhourApiKey")}
+            error={formState.errors.everhourApiKey}
+            label="Everhour Api Key (optional)"
           />
 
           <Button variant="contained" type="submit">
