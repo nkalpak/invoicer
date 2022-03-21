@@ -1,17 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as React from "react";
-import {
-  useForm,
-  UseFormReturn,
-  SubmitHandler,
-  UseFormProps,
-} from "react-hook-form";
+import { useForm, UseFormReturn, UseFormProps } from "react-hook-form";
 import { ZodType, ZodTypeDef } from "zod";
 import { Box } from "@mui/material";
+import { UnpackNestedValue } from "react-hook-form/dist/types/form";
 
 interface IFormProps<TFormValues, Schema> {
   className?: string;
-  onSubmit: SubmitHandler<TFormValues>;
+  onSubmit: (
+    data: UnpackNestedValue<TFormValues>,
+    event?: React.BaseSyntheticEvent,
+    methods?: UseFormReturn<TFormValues>
+  ) => void;
   children: (methods: UseFormReturn<TFormValues>) => React.ReactNode;
   options?: UseFormProps<TFormValues>;
   id?: string;
@@ -42,7 +42,9 @@ export const Form = <
     <Box
       className={className}
       component="form"
-      onSubmit={methods.handleSubmit(onSubmit)}
+      onSubmit={methods.handleSubmit((data, event) =>
+        onSubmit(data, event, methods)
+      )}
       id={id}
       sx={{
         display: "flex",

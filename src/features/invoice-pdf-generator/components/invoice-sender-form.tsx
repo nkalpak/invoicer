@@ -19,7 +19,10 @@ export function InvoiceSenderForm({ onSubmit }: IInvoiceSenderFormProps) {
   return (
     <Form<SenderFormSchema>
       schema={InvoiceSenderParser}
-      onSubmit={onSubmit}
+      onSubmit={(data, event, methods) => {
+        methods?.reset(data);
+        onSubmit(data);
+      }}
       options={{ defaultValues: invoiceSender }}
     >
       {({ formState, register }) => (
@@ -97,8 +100,12 @@ export function InvoiceSenderForm({ onSubmit }: IInvoiceSenderFormProps) {
             helperText="Some additional information to include on your invoice, such as IBAN, SWIFT, Bank information, etc..."
           />
 
-          <Button variant="contained" type="submit">
-            Submit
+          <Button
+            disabled={!formState.isDirty}
+            variant="contained"
+            type="submit"
+          >
+            Save
           </Button>
         </React.Fragment>
       )}

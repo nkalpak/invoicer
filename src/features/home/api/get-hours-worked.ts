@@ -55,8 +55,8 @@ function useGetHoursWorked(
     options
   );
 
-  const time = data?.data[0].time ?? 0;
-  const timeOff = data?.data[0].timeOffTime ?? 0;
+  const time = data?.data[0]?.time ?? 0;
+  const timeOff = data?.data[0]?.timeOffTime ?? 0;
 
   return {
     ...rest,

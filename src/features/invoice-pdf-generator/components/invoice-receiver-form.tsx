@@ -40,7 +40,7 @@ export function InvoiceReceiverForm({ onSubmit }: IInvoiceReceiverFormProps) {
           />
 
           <Button variant="contained" type="submit">
-            Submit
+            Save
           </Button>
         </React.Fragment>
       )}
