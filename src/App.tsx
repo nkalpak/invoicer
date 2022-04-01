@@ -1,24 +1,47 @@
 import React from "react";
-import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
   Box,
   Drawer,
-  IconButton,
   List,
   ListItem,
+  ListItemIcon,
+  ListItemText,
   Toolbar,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { Outlet, useNavigate, Link } from "react-location";
 import { useStore } from "./features/store";
+import { CallReceived, Receipt, Send } from "@mui/icons-material";
 
 const DRAWER_WIDTH = 320;
 
-function DrawerLink({ to, title }: { to: string; title: string }) {
+function DrawerLink({
+  to,
+  title,
+  icon,
+}: {
+  to: string;
+  title: string;
+  icon: React.ReactNode;
+}) {
+  const theme = useTheme();
+
   return (
-    <Link to={to} style={{ textDecoration: "none", color: "inherit" }}>
-      <ListItem button>{title}</ListItem>
+    <Link
+      getActiveProps={() => ({
+        style: {
+          color: theme.palette.primary.main,
+        },
+      })}
+      to={to}
+      style={{ textDecoration: "none", color: "inherit" }}
+    >
+      <ListItem button>
+        <ListItemIcon sx={{ color: "inherit" }}>{icon}</ListItemIcon>
+        <ListItemText>{title}</ListItemText>
+      </ListItem>
     </Link>
   );
 }
@@ -51,9 +74,17 @@ function App() {
           open
         >
           <List>
-            <DrawerLink to="/" title="Generate invoices" />
-            <DrawerLink to="/edit-sender" title="Invoice sender details" />
-            <DrawerLink to="/edit-receiver" title="Invoice receiver details" />
+            <DrawerLink icon={<Receipt />} to="/" title="Generate invoices" />
+            <DrawerLink
+              icon={<Send />}
+              to="/edit-sender"
+              title="Invoice sender details"
+            />
+            <DrawerLink
+              icon={<CallReceived />}
+              to="/edit-receiver"
+              title="Invoice receiver details"
+            />
           </List>
         </Drawer>
 
@@ -67,10 +98,6 @@ function App() {
         >
           <AppBar position="sticky" sx={{ mb: 8 }}>
             <Toolbar>
-              <IconButton color="inherit" sx={{ mr: 2 }}>
-                <MenuIcon />
-              </IconButton>
-
               <Typography variant="h6">Invoice generator</Typography>
             </Toolbar>
           </AppBar>
