@@ -3,6 +3,7 @@ import { PropsWithChildren } from "react";
 import { OnboardingPage } from "../features/onboarding/pages/onboarding-page";
 import { HomePage } from "../features/home/pages/home-page";
 import { EditSenderPage } from "../features/home/pages/edit-sender-page";
+import { EditReceiverPage } from "../features/home/pages/edit-receiver-page";
 
 const location = new ReactLocation();
 
@@ -21,6 +22,10 @@ export function ReactLocationProvider({ children }: PropsWithChildren<{}>) {
         {
           path: "/edit-sender",
           element: <EditSenderPage />,
+        },
+        {
+          path: "/edit-receiver",
+          element: <EditReceiverPage />,
         },
       ]}
       location={location}

@@ -39,7 +39,11 @@ export function InvoiceReceiverForm({ onSubmit }: IInvoiceReceiverFormProps) {
             registration={register("email")}
           />
 
-          <Button variant="contained" type="submit">
+          <Button
+            disabled={!formState.isDirty}
+            variant="contained"
+            type="submit"
+          >
             Save
           </Button>
         </React.Fragment>
