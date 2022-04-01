@@ -9,7 +9,11 @@ import {
 import {
   Box,
   Button,
+  FormControl,
   InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -44,6 +48,18 @@ export function EverhourPdfGenerator() {
     refetchOnMount: false,
   });
 
+  function onSelectLastMonth() {
+    const lastMonth = dayjs().subtract(1, "month");
+    setDateFrom(lastMonth.startOf("month").toISOString());
+    setDateTo(lastMonth.endOf("month").toISOString());
+  }
+
+  function onSelectCustom() {
+    const currentMonth = dayjs();
+    setDateFrom(currentMonth.startOf("month").toISOString());
+    setDateTo(new Date().toISOString());
+  }
+
   return (
     <Box
       sx={{
@@ -64,6 +80,26 @@ export function EverhourPdfGenerator() {
           ),
         }}
       />
+
+      <FormControl fullWidth>
+        <InputLabel id="date-range">Date range</InputLabel>
+        <Select
+          label="Date range"
+          labelId="date-range"
+          defaultValue="custom"
+          onChange={(event) => {
+            const value = event.target.value;
+            if (value === "last-month") {
+              onSelectLastMonth();
+            } else if (value === "custom") {
+              onSelectCustom();
+            }
+          }}
+        >
+          <MenuItem value="custom">Custom</MenuItem>
+          <MenuItem value="last-month">Last month</MenuItem>
+        </Select>
+      </FormControl>
 
       <FormRow>
         <TextField

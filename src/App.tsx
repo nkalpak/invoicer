@@ -15,6 +15,14 @@ import { useStore } from "./features/store";
 
 const DRAWER_WIDTH = 320;
 
+function DrawerLink({ to, title }: { to: string; title: string }) {
+  return (
+    <Link to={to} style={{ textDecoration: "none", color: "inherit" }}>
+      <ListItem button>{title}</ListItem>
+    </Link>
+  );
+}
+
 function App() {
   const { invoiceSender, invoiceReceiver } = useStore();
   const navigate = useNavigate();
@@ -43,13 +51,9 @@ function App() {
           open
         >
           <List>
-            <Link
-              to="/edit-sender"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <ListItem button>Invoice sender details</ListItem>
-            </Link>
-            <ListItem button>Invoice receiver details</ListItem>
+            <DrawerLink to="/" title="Generate invoices" />
+            <DrawerLink to="/edit-sender" title="Invoice sender details" />
+            <DrawerLink to="/edit-receiver" title="Invoice receiver details" />
           </List>
         </Drawer>
 
