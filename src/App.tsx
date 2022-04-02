@@ -11,10 +11,11 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Outlet, useNavigate, Link } from "react-location";
+import { Outlet, Link } from "react-location";
 import { useStore } from "./features/store";
 import { CallReceived, Receipt, Send } from "@mui/icons-material";
 import { PageTitle, usePageTitle } from "./components/page-title/page-title";
+import { OnboardingPage } from "./features/onboarding/pages/onboarding-page";
 
 const DRAWER_WIDTH = 320;
 
@@ -48,19 +49,7 @@ function DrawerLink({
 }
 
 function App() {
-  const { invoiceSender, invoiceReceiver } = useStore();
-  const navigate = useNavigate();
   const pageTitle = usePageTitle();
-
-  const hasRequiredData = invoiceSender.email && invoiceReceiver.email;
-
-  React.useLayoutEffect(() => {
-    if (!hasRequiredData) {
-      navigate({
-        to: "/onboarding",
-      });
-    }
-  }, [hasRequiredData, navigate]);
 
   return (
     <div style={{ display: "flex", flexGrow: 1 }}>
@@ -106,11 +95,18 @@ function App() {
             </Toolbar>
           </AppBar>
 
-          <Outlet />
+          <AppContent />
         </Box>
       </Box>
     </div>
   );
+}
+
+function AppContent() {
+  const { invoiceSender, invoiceReceiver } = useStore();
+  const hasRequiredData = invoiceSender.email && invoiceReceiver.email;
+
+  return hasRequiredData ? <Outlet /> : <OnboardingPage />;
 }
 
 export default App;

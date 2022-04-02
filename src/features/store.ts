@@ -18,6 +18,7 @@ const defaultStoreState: DefaultStoreState = {
     country: "",
     firstName: "",
     lastName: "",
+    everhourApiKey: "",
   },
   invoiceReceiver: {
     email: "",

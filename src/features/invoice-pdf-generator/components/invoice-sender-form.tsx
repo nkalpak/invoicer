@@ -76,7 +76,7 @@ export function InvoiceSenderForm({ onSubmit }: IInvoiceSenderFormProps) {
           <InputField
             registration={register("everhourApiKey")}
             error={formState.errors.everhourApiKey}
-            label="Everhour Api Key (optional)"
+            label="Everhour Api Key"
             helperText={
               <span>
                 You can find your Everhour API key at the bottom of{" "}
@@ -86,6 +86,8 @@ export function InvoiceSenderForm({ onSubmit }: IInvoiceSenderFormProps) {
                 >
                   your profile page
                 </Link>
+                . The API key will allow the application to get your logged
+                hours for a month without you needing to explicitly input them
               </span>
             }
           />
@@ -97,7 +99,8 @@ export function InvoiceSenderForm({ onSubmit }: IInvoiceSenderFormProps) {
             registration={register("description")}
             error={formState.errors.description}
             label="Description"
-            helperText="Some additional information to include on your invoice, such as IBAN, SWIFT, Bank information, etc..."
+            helperText='Some additional information such as IBAN, SWIFT, etc. This information
+            will be included as "transfer instructions" inside the invoice'
           />
 
           <Button

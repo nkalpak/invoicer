@@ -1,10 +1,12 @@
 import {
+  Alert,
   Box,
   Container,
   Paper,
   Step,
   StepButton,
   Stepper,
+  Typography,
 } from "@mui/material";
 import { InvoiceSenderForm } from "../../invoice-pdf-generator/components/invoice-sender-form";
 import { InvoiceReceiverForm } from "../../invoice-pdf-generator/components/invoice-receiver-form";
@@ -51,12 +53,21 @@ export function OnboardingPage() {
           switch (activeStep) {
             case OnboardingStep.SenderInfo:
               return (
-                <InvoiceSenderForm
-                  onSubmit={(data) => {
-                    setInvoiceSender(data);
-                    setActiveStep(OnboardingStep.ReceiverInfo);
-                  }}
-                />
+                <Box>
+                  <Alert severity="info" sx={{ mb: 4 }}>
+                    <Typography variant="body2">
+                      None of the information in this application is sent to a
+                      server. It is all stored locally in your browser.
+                    </Typography>
+                  </Alert>
+
+                  <InvoiceSenderForm
+                    onSubmit={(data) => {
+                      setInvoiceSender(data);
+                      setActiveStep(OnboardingStep.ReceiverInfo);
+                    }}
+                  />
+                </Box>
               );
             case OnboardingStep.ReceiverInfo:
               return (
