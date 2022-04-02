@@ -21,14 +21,9 @@ import { FormRow } from "../../../components/form-row/form-row";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { InvoicePdf } from "./invoice-pdf";
 
-function getInvoiceFilename(
-  fullName: string,
-  dateFrom: string,
-  dateTo: string
-) {
-  return `[Invoice] ${fullName}, ${dayjs(dateFrom).format(
-    "YYYY-MM-DD"
-  )} - ${dayjs(dateTo).format("YYYY-MM-DD")}`;
+function getInvoiceFilename(fullName: string) {
+  const today = dayjs();
+  return [fullName, today.format("MMM"), today.year()].join(" - ");
 }
 
 export function EverhourPdfGenerator() {
@@ -125,9 +120,7 @@ export function EverhourPdfGenerator() {
 
       <PDFDownloadLink
         fileName={getInvoiceFilename(
-          `${invoiceSender.firstName} ${invoiceSender.lastName}`,
-          dateFrom,
-          dateTo
+          `${invoiceSender.firstName} ${invoiceSender.lastName}`
         )}
         style={{
           textDecoration: "none",
@@ -144,7 +137,12 @@ export function EverhourPdfGenerator() {
           />
         }
       >
-        <Button sx={{ width: "100%" }} variant="contained" type="submit">
+        <Button
+          disabled={getHoursWorked.isFetching}
+          sx={{ width: "100%" }}
+          variant="contained"
+          type="submit"
+        >
           Generate Invoice
         </Button>
       </PDFDownloadLink>
