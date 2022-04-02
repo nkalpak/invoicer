@@ -34,7 +34,7 @@ function DrawerLink({
     <Link
       getActiveProps={() => ({
         style: {
-          color: theme.palette.primary.main,
+          color: theme.palette.secondary.main,
         },
       })}
       to={to}

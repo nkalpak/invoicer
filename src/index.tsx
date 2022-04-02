@@ -10,6 +10,14 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateAdapter from "@mui/lab/AdapterDayjs";
 
 const theme = createTheme({
+  palette: {
+    secondary: {
+      main: "#007EA7",
+    },
+    primary: {
+      main: "#003249",
+    },
+  },
   typography: {
     fontFamily: "Fira Sans",
   },
