@@ -1,7 +1,6 @@
 import React from "react";
 import dayjs from "dayjs";
 import MetergramLogo from "../../../assets/images/metergram-logo.png";
-import { build, fake } from "@jackfranklin/test-data-bot";
 import { Document, Page, Text, View, Image } from "@react-pdf/renderer";
 import { registerFonts } from "../utils/register-fonts";
 import { Currency } from "./currency";
@@ -33,46 +32,6 @@ interface IInvoicePdfProps {
   description?: string;
   invoiceNumber: number;
 }
-
-const senderBuilder = build<IInvoiceSender>({
-  fields: {
-    firstName: fake((f) => f.name.firstName()),
-    lastName: fake((f) => f.name.lastName()),
-    address: fake((f) => f.address.streetAddress()),
-    city: fake((f) => f.address.city()),
-    country: fake((f) => f.address.country()),
-    email: fake((f) => f.internet.email()),
-    postalCode: fake((f) => f.address.zipCode()),
-  },
-});
-
-const receiverBuilder = build<IInvoiceReceiver>({
-  fields: {
-    address: fake((f) => f.address.streetAddress()),
-    email: fake((f) => f.internet.email()),
-    name: fake((f) => f.company.companyName()),
-  },
-});
-
-export const invoiceBuilder = build<IInvoicePdfProps>({
-  fields: {
-    sender: {},
-    receiver: {},
-    dateGenerated: fake((f) => f.date.past().toISOString()),
-    description: fake((f) => f.lorem.paragraph(5)),
-    hourlyRateCents: fake((f) =>
-      f.datatype.number({ min: 100, max: 40 * 100 })
-    ),
-    hours: fake((f) => f.datatype.number({ min: 150, max: 200 })),
-    invoiceNumber: fake((f) => f.datatype.number({ min: 1, max: 300 })),
-  },
-  postBuild: (x) => {
-    x.receiver = receiverBuilder();
-    x.sender = senderBuilder();
-
-    return x;
-  },
-});
 
 registerFonts();
 export const Colors = {
