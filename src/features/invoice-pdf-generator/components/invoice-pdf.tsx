@@ -30,7 +30,6 @@ interface IInvoicePdfProps {
   hours: number;
   dateGenerated: string;
   description?: string;
-  invoiceNumber: number;
 }
 
 registerFonts();
@@ -68,7 +67,6 @@ export function InvoicePdf({
   dateGenerated,
   sender,
   receiver,
-  invoiceNumber,
 }: IInvoicePdfProps) {
   return (
     <Document>
@@ -110,7 +108,7 @@ export function InvoicePdf({
             marginBottom: Spacing["8"],
           }}
         >
-          Invoice #{invoiceNumber}
+          Invoice
         </Text>
 
         <PdfGenerator.Row gap={Spacing["10"]}>

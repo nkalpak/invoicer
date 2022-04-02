@@ -141,7 +141,6 @@ export function EverhourPdfGenerator() {
             hours={getHoursWorked.hoursWorked}
             dateGenerated={dayjs().toISOString()}
             description={invoiceSender.description}
-            invoiceNumber={1}
           />
         }
       >
