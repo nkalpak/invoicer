@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useStore } from "../../store";
 import React from "react";
 import { useLocalStorage } from "react-use";
@@ -21,9 +21,8 @@ import { FormRow } from "../../../components/form-row/form-row";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { InvoicePdf } from "./invoice-pdf";
 
-function getInvoiceFilename(fullName: string) {
-  const today = dayjs();
-  return [fullName, today.format("MMM"), today.year()].join(" - ");
+function getInvoiceFilename(fullName: string, date: Dayjs) {
+  return [fullName, date.format("MMM"), date.year()].join(" - ");
 }
 
 export function EverhourPdfGenerator() {
@@ -120,7 +119,8 @@ export function EverhourPdfGenerator() {
 
       <PDFDownloadLink
         fileName={getInvoiceFilename(
-          `${invoiceSender.firstName} ${invoiceSender.lastName}`
+          `${invoiceSender.firstName} ${invoiceSender.lastName}`,
+          dayjs(dateFrom)
         )}
         style={{
           textDecoration: "none",
