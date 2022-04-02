@@ -6,7 +6,8 @@
     "@rushstack/eslint-config": "^2.5.1",
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.5.1",
-    "webpack": "^5.68.0"
+    "webpack": "^5.68.0",
+    "@types/react-helmet": "^6.1.5"
   },
   "dependencies": {
     "@craco/craco": "^6.4.3",
@@ -45,7 +46,8 @@
     "util": "^0.12.4",
     "web-vitals": "^2.1.4",
     "zod": "^3.11.6",
-    "zustand": "^3.7.0"
+    "zustand": "^3.7.0",
+    "react-helmet": "^6.1.0"
   },
   "scripts": {
     "start": "craco start",

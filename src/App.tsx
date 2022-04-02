@@ -14,6 +14,7 @@ import {
 import { Outlet, useNavigate, Link } from "react-location";
 import { useStore } from "./features/store";
 import { CallReceived, Receipt, Send } from "@mui/icons-material";
+import { PageTitle, usePageTitle } from "./components/page-title/page-title";
 
 const DRAWER_WIDTH = 320;
 
@@ -49,6 +50,7 @@ function DrawerLink({
 function App() {
   const { invoiceSender, invoiceReceiver } = useStore();
   const navigate = useNavigate();
+  const pageTitle = usePageTitle();
 
   const hasRequiredData = invoiceSender.email && invoiceReceiver.email;
 
@@ -62,6 +64,8 @@ function App() {
 
   return (
     <div style={{ display: "flex", flexGrow: 1 }}>
+      <PageTitle />
+
       <Box sx={{ flexGrow: 1, color: "white" }}>
         <Drawer
           sx={{
@@ -98,7 +102,7 @@ function App() {
         >
           <AppBar position="sticky" sx={{ mb: 8 }}>
             <Toolbar>
-              <Typography variant="h6">Invoice generator</Typography>
+              <Typography variant="h6">{pageTitle}</Typography>
             </Toolbar>
           </AppBar>
 
