@@ -1,4 +1,5 @@
 import React from "react";
+import { FormattedNumber } from "react-intl";
 
 interface ICurrencyProps {
   currency?: "eur";
@@ -6,27 +7,13 @@ interface ICurrencyProps {
   precision?: number;
 }
 
-function getPrecisionForNumber(num: number, desiredPrecision: number) {
-  const isWhole = num - Math.floor(num) === 0;
-  return isWhole ? 4 : desiredPrecision;
-}
-
-const MAPPERS: Record<
-  Required<ICurrencyProps>["currency"],
-  (amountCents: number, precision?: number) => string
-> = {
-  eur(amountCents: number, precision: number = 5) {
-    const amount = amountCents / 100;
-    return `€${amount.toPrecision(getPrecisionForNumber(amount, precision))}`;
-  },
-};
-
-export function Currency({
-  currency = "eur",
-  amountCents,
-  precision,
-}: ICurrencyProps) {
+export function Currency({ currency = "eur", amountCents }: ICurrencyProps) {
   return (
-    <React.Fragment>{MAPPERS[currency](amountCents, precision)}</React.Fragment>
+    <FormattedNumber
+      roundingPriority="morePrecision"
+      value={amountCents / 100}
+      currency={currency}
+      style="currency"
+    />
   );
 }

@@ -63,8 +63,11 @@ export function EverhourPdfGenerator() {
       }}
     >
       <TextField
+        type="number"
         value={hourlyRate}
-        onChange={(event) => setHourlyRate(parseInt(event.target.value, 10))}
+        onChange={(event) => {
+          setHourlyRate(parseFloat(event.target.value));
+        }}
         label="Hourly rate"
         InputProps={{
           startAdornment: (

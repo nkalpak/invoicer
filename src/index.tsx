@@ -8,6 +8,7 @@ import { ReactLocationProvider } from "./lib/react-location";
 import { ReactQueryProvider } from "./lib/react-query";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateAdapter from "@mui/lab/AdapterDayjs";
+import { IntlProvider } from "react-intl";
 
 const theme = createTheme({
   palette: {
@@ -29,7 +30,7 @@ function GlobalProvider({ children }: { children: React.ReactNode }) {
       <ReactLocationProvider>
         <ThemeProvider theme={theme}>
           <LocalizationProvider dateAdapter={DateAdapter}>
-            {children}
+            <IntlProvider locale="en-US">{children}</IntlProvider>
           </LocalizationProvider>
         </ThemeProvider>
       </ReactLocationProvider>
